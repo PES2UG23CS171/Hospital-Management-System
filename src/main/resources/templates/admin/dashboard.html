@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Panel | Dhrushaj Hospital</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-brand"><div class="brand-icon">🏥</div><h2>Dhrushaj Hospital</h2><p>Management System</p></div>
+    <nav class="sidebar-nav">
+        <div class="nav-section">Main</div>
+        <a th:href="@{/dashboard}" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+        <div class="nav-section">Patients &amp; Doctors</div>
+        <a th:href="@{/patients}"     class="nav-item"><span class="icon">🧑‍⚕️</span> Patients</a>
+        <a th:href="@{/doctors}"      class="nav-item"><span class="icon">👨‍⚕️</span> Doctors</a>
+        <a th:href="@{/appointments}" class="nav-item"><span class="icon">📅</span> Appointments</a>
+        <div class="nav-section">Operations</div>
+        <a th:href="@{/bills}"     class="nav-item"><span class="icon">💰</span> Billing</a>
+        <a th:href="@{/medicines}" class="nav-item"><span class="icon">💊</span> Medicines</a>
+        <a th:href="@{/staff}"     class="nav-item"><span class="icon">👥</span> Staff</a>
+        <a th:href="@{/medical-records}" class="nav-item"><span class="icon">&#x1F4CB;</span> Medical Records</a>
+        <div class="nav-section">Admin</div>
+        <a th:href="@{/admin/dashboard}" class="nav-item active"><span class="icon">🛡️</span> Admin Panel</a>
+        <a th:href="@{/admin/reports}"   class="nav-item"><span class="icon">📈</span> Reports</a>
+    </nav>
+    <div class="sidebar-footer"><a th:href="@{/logout}"><span>🚪</span> Logout</a></div>
+</div>
+<div class="main">
+    <div class="topbar"><h1>Admin Panel</h1><div class="topbar-right"><span>🏥 Dhrushaj Hospital</span></div></div>
+    <div class="content">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🧑‍⚕️</div>
+                <div class="stat-info">
+                    <div class="value" th:text="${patientCount}">0</div>
+                    <div class="label">Total Patients</div>
+                </div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-icon">👨‍⚕️</div>
+                <div class="stat-info">
+                    <div class="value" th:text="${doctorCount}">0</div>
+                    <div class="label">Doctors</div>
+                </div>
+            </div>
+            <div class="stat-card orange">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <div class="value" th:text="${staffCount}">0</div>
+                    <div class="label">Staff</div>
+                </div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-icon">💊</div>
+                <div class="stat-info">
+                    <div class="value" th:text="${medicineCount}">0</div>
+                    <div class="label">Medicines</div>
+                </div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-icon">💰</div>
+                <div class="stat-info">
+                    <div class="value" th:text="'₹' + ${#numbers.formatDecimal(totalRevenue != null ? totalRevenue : 0, 1, 2)}">₹0</div>
+                    <div class="label">Total Revenue</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+            <div class="panel">
+                <div class="panel-header"><h3>⚠️ Low Stock Medicines</h3></div>
+                <div class="panel-body" style="padding:0">
+                    <table class="data-table">
+                        <thead><tr><th>Medicine</th><th>Stock</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr th:if="${#lists.isEmpty(lowStockMedicines)}">
+                                <td colspan="3" style="text-align:center; color:#aaa; padding:20px;">All good 👍</td>
+                            </tr>
+                            <tr th:each="m : ${lowStockMedicines}">
+                                <td th:text="${m.name}"></td>
+                                <td th:text="${m.stockQuantity}"></td>
+                                <td><span class="badge" th:classappend="${m.status}" th:text="${m.status}"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-header"><h3>🚨 Expiring Soon</h3></div>
+                <div class="panel-body" style="padding:0">
+                    <table class="data-table">
+                        <thead><tr><th>Medicine</th><th>Expiry</th></tr></thead>
+                        <tbody>
+                            <tr th:if="${#lists.isEmpty(expiringSoon)}">
+                                <td colspan="2" style="text-align:center; color:#aaa; padding:20px;">None expiring soon 👍</td>
+                            </tr>
+                            <tr th:each="m : ${expiringSoon}">
+                                <td th:text="${m.name}"></td>
+                                <td th:text="${m.expiryDate}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel" style="margin-top:20px">
+            <div class="panel-header">
+                <h3>Quick Links</h3>
+            </div>
+            <div class="panel-body" style="display:flex; gap:12px; flex-wrap:wrap;">
+                <a th:href="@{/patients}"     class="btn btn-primary">🧑‍⚕️ Manage Patients</a>
+                <a th:href="@{/doctors}"      class="btn btn-success">👨‍⚕️ Manage Doctors</a>
+                <a th:href="@{/staff}"        class="btn btn-warning">👥 Manage Staff</a>
+        <a th:href="@{/medical-records}" class="nav-item"><span class="icon">&#x1F4CB;</span> Medical Records</a>
+                <a th:href="@{/medicines}"    class="btn btn-secondary">💊 Manage Medicines</a>
+                <a th:href="@{/admin/reports}" class="btn btn-primary">📈 View Reports</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

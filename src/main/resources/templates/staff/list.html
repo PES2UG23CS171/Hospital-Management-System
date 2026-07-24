@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Staff | Dhrushaj Hospital</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-brand"><div class="brand-icon">🏥</div><h2>Dhrushaj Hospital</h2><p>Management System</p></div>
+    <nav class="sidebar-nav">
+        <div class="nav-section">Main</div>
+        <a th:href="@{/dashboard}" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+        <div class="nav-section">Patients &amp; Doctors</div>
+        <a th:href="@{/patients}"     class="nav-item"><span class="icon">🧑‍⚕️</span> Patients</a>
+        <a th:href="@{/doctors}"      class="nav-item"><span class="icon">👨‍⚕️</span> Doctors</a>
+        <a th:href="@{/appointments}" class="nav-item"><span class="icon">📅</span> Appointments</a>
+        <div class="nav-section">Operations</div>
+        <a th:href="@{/bills}"     class="nav-item"><span class="icon">💰</span> Billing</a>
+        <a th:href="@{/medicines}" class="nav-item"><span class="icon">💊</span> Medicines</a>
+        <a th:href="@{/staff}"     class="nav-item active"><span class="icon">👥</span> Staff</a>
+        <a th:href="@{/medical-records}" class="nav-item"><span class="icon">&#x1F4CB;</span> Medical Records</a>
+        <div class="nav-section">Admin</div>
+        <a th:href="@{/admin/dashboard}" class="nav-item"><span class="icon">🛡️</span> Admin Panel</a>
+        <a th:href="@{/admin/reports}"   class="nav-item"><span class="icon">📈</span> Reports</a>
+    </nav>
+    <div class="sidebar-footer"><a th:href="@{/logout}"><span>🚪</span> Logout</a></div>
+</div>
+<div class="main">
+    <div class="topbar"><h1>Staff</h1><div class="topbar-right"><span>🏥 Dhrushaj Hospital</span></div></div>
+    <div class="content">
+        <div class="page-header">
+            <h2>Staff Members</h2>
+            <a th:href="@{/staff/new}" class="btn btn-primary">➕ Add Staff</a>
+        </div>
+        <div class="panel">
+            <div class="panel-body" style="padding:0">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>ID</th><th>Name</th><th>Role</th><th>Phone</th><th>Schedule</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${#lists.isEmpty(staffList)}">
+                            <td colspan="6" style="text-align:center; color:#aaa; padding:28px;">No staff found</td>
+                        </tr>
+                        <tr th:each="s : ${staffList}">
+                            <td th:text="${s.id}"></td>
+                            <td th:text="${s.name}"></td>
+                            <td th:text="${s.role}"></td>
+                            <td th:text="${s.phone}"></td>
+                            <td th:text="${s.schedule}"></td>
+                            <td>
+                                <a th:href="@{/staff/edit/{id}(id=${s.id})}" class="btn btn-warning btn-sm">✏️ Edit</a>
+                                <a th:href="@{/staff/delete/{id}(id=${s.id})}" class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Delete this staff member?')">🗑️ Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

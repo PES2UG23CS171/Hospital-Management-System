@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Patient Form | Dhrushaj Hospital</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-brand">
+        <div class="brand-icon">🏥</div>
+        <h2>Dhrushaj Hospital</h2>
+        <p>Management System</p>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-section">Main</div>
+        <a th:href="@{/dashboard}" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+        <div class="nav-section">Patients &amp; Doctors</div>
+        <a th:href="@{/patients}"     class="nav-item active"><span class="icon">🧑‍⚕️</span> Patients</a>
+        <a th:href="@{/doctors}"      class="nav-item"><span class="icon">👨‍⚕️</span> Doctors</a>
+        <a th:href="@{/appointments}" class="nav-item"><span class="icon">📅</span> Appointments</a>
+        <div class="nav-section">Operations</div>
+        <a th:href="@{/bills}"     class="nav-item"><span class="icon">💰</span> Billing</a>
+        <a th:href="@{/medicines}" class="nav-item"><span class="icon">💊</span> Medicines</a>
+        <a th:href="@{/staff}"     class="nav-item"><span class="icon">👥</span> Staff</a>
+        <a th:href="@{/medical-records}" class="nav-item"><span class="icon">&#x1F4CB;</span> Medical Records</a>
+        <div class="nav-section">Admin</div>
+        <a th:href="@{/admin/dashboard}" class="nav-item"><span class="icon">🛡️</span> Admin Panel</a>
+        <a th:href="@{/admin/reports}"   class="nav-item"><span class="icon">📈</span> Reports</a>
+    </nav>
+    <div class="sidebar-footer">
+        <a th:href="@{/logout}"><span>🚪</span> Logout</a>
+    </div>
+</div>
+<div class="main">
+    <div class="topbar">
+        <h1>Patient Form</h1>
+        <div class="topbar-right"><span>🏥 Dhrushaj Hospital</span></div>
+    </div>
+    <div class="content">
+        <div class="page-header">
+            <h2 th:text="${patient.id == null} ? 'Add New Patient' : 'Edit Patient'">Patient</h2>
+            <a th:href="@{/patients}" class="btn btn-secondary">← Back</a>
+        </div>
+        <div class="panel">
+            <div class="panel-body">
+                <form th:action="@{/patients/save}" th:object="${patient}" method="post">
+                    <input type="hidden" th:field="*{id}"/>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" th:field="*{name}" placeholder="Patient name" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" th:field="*{age}" placeholder="Age" min="0" max="150"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select th:field="*{gender}">
+                                <option value="">Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" th:field="*{phone}" placeholder="Phone number"/>
+                        </div>
+                        <div class="form-group full">
+                            <label>Address</label>
+                            <input type="text" th:field="*{address}" placeholder="Address"/>
+                        </div>
+                        <div class="form-group full">
+                            <label>Medical History</label>
+                            <textarea th:field="*{medicalHistory}" rows="4" placeholder="Medical history notes..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">💾 Save Patient</button>
+                        <a th:href="@{/patients}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

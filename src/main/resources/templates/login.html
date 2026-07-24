@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login | Dhrushaj Hospital</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a3c5e 0%, #2d7dd2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 400px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #1a3c5e, #2d7dd2);
+            padding: 36px 32px 28px;
+            text-align: center;
+            color: white;
+        }
+
+        .card-header .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .card-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .card-header p {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        .card-body {
+            padding: 32px;
+        }
+
+        .alert {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .alert-danger { background: #fdecea; color: #c0392b; border-left: 4px solid #c0392b; }
+        .alert-info   { background: #e8f4fd; color: #1a6fa8; border-left: 4px solid #2d7dd2; }
+        .alert-success{ background: #eafaf1; color: #1e8449; border-left: 4px solid #27ae60; }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #dde3ea;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #2d7dd2;
+            box-shadow: 0 0 0 3px rgba(45,125,210,0.15);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #1a3c5e, #2d7dd2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 4px;
+        }
+
+        .btn-login:hover { opacity: 0.9; }
+
+        .card-footer {
+            text-align: center;
+            padding: 16px 32px 24px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .card-footer a {
+            color: #2d7dd2;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card-footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="card-header">
+        <div class="icon">🏥</div>
+        <h1>Dhrushaj Hospital</h1>
+        <p>Hospital Management System</p>
+    </div>
+    <div class="card-body">
+        <div th:if="${param.error}" class="alert alert-danger">Invalid username or password.</div>
+        <div th:if="${param.logout}" class="alert alert-info">Logged out successfully.</div>
+        <div th:if="${param.registered}" class="alert alert-success">Registration successful! Please login.</div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required/>
+            </div>
+            <button type="submit" class="btn-login">Sign In</button>
+        </form>
+    </div>
+    <div class="card-footer">
+        Don't have an account? <a th:href="@{/register}">Register here</a>
+    </div>
+</div>
+</body>
+</html>

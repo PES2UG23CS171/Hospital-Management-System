@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Bill Receipt | Dhrushaj Hospital</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <style>
+        .receipt { max-width: 600px; margin: 40px auto; background: white; border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .receipt-header { text-align: center; border-bottom: 2px solid #1a3c5e; padding-bottom: 20px; margin-bottom: 24px; }
+        .receipt-header h2 { color: #1a3c5e; font-size: 24px; }
+        .receipt-header p { color: #888; font-size: 13px; }
+        .receipt-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+        .receipt-row .label { color: #888; }
+        .receipt-row .value { font-weight: 600; color: #333; }
+        .receipt-total { display: flex; justify-content: space-between; padding: 16px 0 0; font-size: 18px; font-weight: 700; color: #1a3c5e; }
+        .receipt-footer { text-align: center; margin-top: 28px; color: #aaa; font-size: 12px; }
+    </style>
+</head>
+<body style="background:#f0f4f8">
+<div class="receipt">
+    <div class="receipt-header">
+        <div style="font-size:40px">🏥</div>
+        <h2>Dhrushaj Hospital</h2>
+        <p>Official Payment Receipt</p>
+    </div>
+
+    <div th:if="${bill != null}">
+        <div class="receipt-row">
+            <span class="label">Bill #</span>
+            <span class="value" th:text="${bill.id}"></span>
+        </div>
+        <div class="receipt-row">
+            <span class="label">Patient</span>
+            <span class="value" th:text="${bill.patient?.name ?: '-'}"></span>
+        </div>
+        <div class="receipt-row">
+            <span class="label">Date</span>
+            <span class="value" th:text="${bill.billDate}"></span>
+        </div>
+        <div class="receipt-row">
+            <span class="label">Description</span>
+            <span class="value" th:text="${bill.itemsDescription}"></span>
+        </div>
+        <div class="receipt-total">
+            <span>Total Amount</span>
+            <span th:text="'₹' + ${bill.totalAmount}"></span>
+        </div>
+    </div>
+
+    <div class="receipt-footer">
+        <p>Thank you for choosing Dhrushaj Hospital</p>
+        <p style="margin-top:4px">Get well soon 💙</p>
+    </div>
+
+    <div style="text-align:center; margin-top:24px;" class="no-print">
+        <button onclick="window.print()" class="btn btn-primary">🖨️ Print</button>
+        <a th:href="@{/bills}" class="btn btn-secondary">← Back to Bills</a>
+    </div>
+</div>
+</body>
+</html>

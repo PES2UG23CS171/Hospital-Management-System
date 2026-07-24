@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admins | Dhrushaj Hospital</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-brand"><div class="brand-icon">🏥</div><h2>Dhrushaj Hospital</h2><p>Management System</p></div>
+    <nav class="sidebar-nav">
+        <div class="nav-section">Main</div>
+        <a th:href="@{/dashboard}" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+        <div class="nav-section">Patients &amp; Doctors</div>
+        <a th:href="@{/patients}" class="nav-item"><span class="icon">🧑‍⚕️</span> Patients</a>
+        <a th:href="@{/doctors}" class="nav-item"><span class="icon">👨‍⚕️</span> Doctors</a>
+        <a th:href="@{/appointments}" class="nav-item"><span class="icon">📅</span> Appointments</a>
+        <div class="nav-section">Operations</div>
+        <a th:href="@{/bills}" class="nav-item"><span class="icon">💰</span> Billing</a>
+        <a th:href="@{/medicines}" class="nav-item"><span class="icon">💊</span> Medicines</a>
+        <a th:href="@{/staff}" class="nav-item"><span class="icon">👥</span> Staff</a>
+        <a th:href="@{/medical-records}" class="nav-item"><span class="icon">&#x1F4CB;</span> Medical Records</a>
+        <div class="nav-section">Admin</div>
+        <a th:href="@{/admin/dashboard}" class="nav-item"><span class="icon">🛡️</span> Admin Panel</a>
+        <a th:href="@{/admin/list}" class="nav-item active"><span class="icon">👤</span> Admins</a>
+        <a th:href="@{/admin/reports}" class="nav-item"><span class="icon">📈</span> Reports</a>
+    </nav>
+    <div class="sidebar-footer"><a th:href="@{/logout}"><span>🚪</span> Logout</a></div>
+</div>
+<div class="main">
+    <div class="topbar"><h1>Admins</h1><div class="topbar-right"><span>🏥 Dhrushaj Hospital</span></div></div>
+    <div class="content">
+        <div class="page-header">
+            <h2>System Administrators</h2>
+            <a th:href="@{/admin/new}" class="btn btn-primary">➕ Add Admin</a>
+        </div>
+        <div class="panel">
+            <div class="panel-body" style="padding:0">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>ID</th><th>Name</th><th>Phone</th><th>User Account</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${#lists.isEmpty(admins)}">
+                            <td colspan="5" style="text-align:center; color:#aaa; padding:28px;">No admins found</td>
+                        </tr>
+                        <tr th:each="a : ${admins}">
+                            <td th:text="${a.id}"></td>
+                            <td th:text="${a.name}"></td>
+                            <td th:text="${a.phone}"></td>
+                            <td th:text="${a.user?.username ?: '-'}"></td>
+                            <td>
+                                <a th:href="@{/admin/delete/{id}(id=${a.id})}" class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Delete this admin?')">🗑️ Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

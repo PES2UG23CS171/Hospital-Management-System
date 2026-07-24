@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Medicine Form | Dhrushaj Hospital</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-brand"><div class="brand-icon">🏥</div><h2>Dhrushaj Hospital</h2><p>Management System</p></div>
+    <nav class="sidebar-nav">
+        <div class="nav-section">Main</div>
+        <a th:href="@{/dashboard}" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+        <div class="nav-section">Patients &amp; Doctors</div>
+        <a th:href="@{/patients}"     class="nav-item"><span class="icon">🧑‍⚕️</span> Patients</a>
+        <a th:href="@{/doctors}"      class="nav-item"><span class="icon">👨‍⚕️</span> Doctors</a>
+        <a th:href="@{/appointments}" class="nav-item"><span class="icon">📅</span> Appointments</a>
+        <div class="nav-section">Operations</div>
+        <a th:href="@{/bills}"     class="nav-item"><span class="icon">💰</span> Billing</a>
+        <a th:href="@{/medicines}" class="nav-item active"><span class="icon">💊</span> Medicines</a>
+        <a th:href="@{/staff}"     class="nav-item"><span class="icon">👥</span> Staff</a>
+        <a th:href="@{/medical-records}" class="nav-item"><span class="icon">&#x1F4CB;</span> Medical Records</a>
+        <div class="nav-section">Admin</div>
+        <a th:href="@{/admin/dashboard}" class="nav-item"><span class="icon">🛡️</span> Admin Panel</a>
+        <a th:href="@{/admin/reports}"   class="nav-item"><span class="icon">📈</span> Reports</a>
+    </nav>
+    <div class="sidebar-footer"><a th:href="@{/logout}"><span>🚪</span> Logout</a></div>
+</div>
+<div class="main">
+    <div class="topbar"><h1>Medicine Form</h1><div class="topbar-right"><span>🏥 Dhrushaj Hospital</span></div></div>
+    <div class="content">
+        <div class="page-header">
+            <h2>Add Medicine</h2>
+            <a th:href="@{/medicines}" class="btn btn-secondary">← Back</a>
+        </div>
+        <div class="panel">
+            <div class="panel-body">
+                <form th:action="@{/medicines/save}" th:object="${medicine}" method="post">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Medicine Name</label>
+                            <input type="text" th:field="*{name}" placeholder="Medicine name" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Manufacturer</label>
+                            <input type="text" th:field="*{manufacturer}" placeholder="Manufacturer"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Stock Quantity</label>
+                            <input type="number" th:field="*{stockQuantity}" placeholder="0" min="0"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (₹)</label>
+                            <input type="number" th:field="*{price}" placeholder="0.00" step="0.01" min="0"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="date" th:field="*{expiryDate}"/>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">💾 Save Medicine</button>
+                        <a th:href="@{/medicines}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

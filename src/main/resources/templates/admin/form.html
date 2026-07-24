@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Form | Dhrushaj Hospital</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-brand"><div class="brand-icon">🏥</div><h2>Dhrushaj Hospital</h2><p>Management System</p></div>
+    <nav class="sidebar-nav">
+        <div class="nav-section">Main</div>
+        <a th:href="@{/dashboard}" class="nav-item"><span class="icon">📊</span> Dashboard</a>
+        <div class="nav-section">Patients &amp; Doctors</div>
+        <a th:href="@{/patients}" class="nav-item"><span class="icon">🧑‍⚕️</span> Patients</a>
+        <a th:href="@{/doctors}" class="nav-item"><span class="icon">👨‍⚕️</span> Doctors</a>
+        <a th:href="@{/appointments}" class="nav-item"><span class="icon">📅</span> Appointments</a>
+        <div class="nav-section">Operations</div>
+        <a th:href="@{/bills}" class="nav-item"><span class="icon">💰</span> Billing</a>
+        <a th:href="@{/medicines}" class="nav-item"><span class="icon">💊</span> Medicines</a>
+        <a th:href="@{/staff}" class="nav-item"><span class="icon">👥</span> Staff</a>
+        <a th:href="@{/medical-records}" class="nav-item"><span class="icon">&#x1F4CB;</span> Medical Records</a>
+        <div class="nav-section">Admin</div>
+        <a th:href="@{/admin/dashboard}" class="nav-item"><span class="icon">🛡️</span> Admin Panel</a>
+        <a th:href="@{/admin/list}" class="nav-item active"><span class="icon">👤</span> Admins</a>
+        <a th:href="@{/admin/reports}" class="nav-item"><span class="icon">📈</span> Reports</a>
+    </nav>
+    <div class="sidebar-footer"><a th:href="@{/logout}"><span>🚪</span> Logout</a></div>
+</div>
+<div class="main">
+    <div class="topbar"><h1>Admin Form</h1><div class="topbar-right"><span>🏥 Dhrushaj Hospital</span></div></div>
+    <div class="content">
+        <div class="page-header">
+            <h2>Add New Admin</h2>
+            <a th:href="@{/admin/list}" class="btn btn-secondary">← Back</a>
+        </div>
+        <div class="panel">
+            <div class="panel-body">
+                <form th:action="@{/admin/save}" th:object="${admin}" method="post">
+                    <input type="hidden" th:field="*{id}"/>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" th:field="*{name}" placeholder="Admin name" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" th:field="*{phone}" placeholder="Phone number"/>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">💾 Save Admin</button>
+                        <a th:href="@{/admin/list}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
