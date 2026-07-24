@@ -1,3 +1,13 @@
+---
+title: Hospital Management System
+emoji: 🏥
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 8080
+pinned: false
+---
+
 # Dhrushaj Hospital — Hospital Management System
 
 A full-stack Hospital Management System built with **Spring Boot MVC**, **Thymeleaf**, and **MySQL**. It provides a role-aware web dashboard for managing the day-to-day operations of a hospital — patients, doctors, staff, appointments, medicines, medical records, and billing.
