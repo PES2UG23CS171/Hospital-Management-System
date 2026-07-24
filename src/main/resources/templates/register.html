@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register | Dhrushaj Hospital</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a3c5e 0%, #2d7dd2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 400px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #1a3c5e, #2d7dd2);
+            padding: 36px 32px 28px;
+            text-align: center;
+            color: white;
+        }
+
+        .card-header .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .card-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .card-header p {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        .card-body {
+            padding: 32px;
+        }
+
+        .alert {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .alert-danger { background: #fdecea; color: #c0392b; border-left: 4px solid #c0392b; }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #dde3ea;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            transition: border-color 0.2s;
+            outline: none;
+            background: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2d7dd2;
+            box-shadow: 0 0 0 3px rgba(45,125,210,0.15);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #1a3c5e, #2d7dd2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 4px;
+        }
+
+        .btn-login:hover { opacity: 0.9; }
+
+        .card-footer {
+            text-align: center;
+            padding: 16px 32px 24px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .card-footer a {
+            color: #2d7dd2;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .card-footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="card-header">
+        <div class="icon">🏥</div>
+        <h1>Dhrushaj Hospital</h1>
+        <p>Create your account</p>
+    </div>
+    <div class="card-body">
+        <div th:if="${param.error != null and param.error[0] == 'username'}" class="alert alert-danger">Username must be at least 3 characters.</div>
+        <div th:if="${param.error != null and param.error[0] == 'weak'}" class="alert alert-danger">Password must be at least 6 characters.</div>
+        <div th:if="${param.error != null and param.error[0] == 'mismatch'}" class="alert alert-danger">Passwords do not match.</div>
+        <div th:if="${param.error != null and param.error[0] == 'exists'}" class="alert alert-danger">That username is already taken.</div>
+        <div th:if="${param.error != null and param.error[0] == 'role'}" class="alert alert-danger">Please select a valid role.</div>
+
+        <form th:action="@{/register}" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Choose a username" required minlength="3"/>
+            </div>
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" name="role" required>
+                    <option value="PATIENT" selected>Patient</option>
+                    <option value="DOCTOR">Doctor</option>
+                    <option value="STAFF">Staff</option>
+                    <option value="RECEPTIONIST">Receptionist</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Choose a password" required minlength="6"/>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter your password" required minlength="6"/>
+            </div>
+            <button type="submit" class="btn-login">Create Account</button>
+        </form>
+    </div>
+    <div class="card-footer">
+        Already have an account? <a th:href="@{/login}">Sign in</a>
+    </div>
+</div>
+</body>
+</html>
