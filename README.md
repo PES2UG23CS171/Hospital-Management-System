@@ -1,5 +1,7 @@
 # Dhrushaj Hospital — Hospital Management System
 
+[![CI](https://github.com/PES2UG23CS171/Hospital-Management-System/actions/workflows/ci.yml/badge.svg)](https://github.com/PES2UG23CS171/Hospital-Management-System/actions/workflows/ci.yml)
+
 A full-stack Hospital Management System built with **Spring Boot MVC**, **Thymeleaf**, and **MySQL**. It provides a role-aware web dashboard for managing the day-to-day operations of a hospital — patients, doctors, staff, appointments, medicines, medical records, and billing.
 
 Developed by **Dhrushaj Achar**.
@@ -67,6 +69,30 @@ Developed by **Dhrushaj Achar**.
 docker build -t hospital-management .
 docker run -p 8080:8080 --env-file .env hospital-management
 ```
+
+## Testing
+
+68 tests run against an in-memory H2 database, so the suite needs no local MySQL:
+
+```bash
+./mvnw test
+```
+
+| Suite | Covers |
+|---|---|
+| `ManagementApplicationTests` | Context startup, admin seeding, password hashing |
+| `SecurityAccessTests` | Public vs. authenticated routes, redirects |
+| `RegistrationTests` | Sign-up validation, BCrypt storage, login round-trip |
+| `PatientCrudTests` | Patient create / read / update / delete |
+| `DoctorAndStaffCrudTests` | Doctor and staff CRUD |
+| `MedicineCrudTests` | Medicine CRUD, stock updates, expiry and low-stock queries |
+| `BillingAndRecordsTests` | Bill generation, revenue totals, medical records |
+| `AppointmentWorkflowTests` | Appointment state machine and role-based transitions |
+
+## Continuous Integration
+
+Every push and pull request to `main` triggers [GitHub Actions](.github/workflows/ci.yml), which runs the
+full test suite on JDK 17 and then verifies the Docker image builds.
 
 ## Project Structure
 
